@@ -1,1 +1,28 @@
-<!DOCTYPE html><html><head><title>RV Tool</title></head><body><h1>Rateable Value Tool</h1></body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RV Lookup Tool</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Rateable Value Lookup Tool</h1>
+    <form id="preload-form">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="text" name="company" placeholder="Company Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="phone" placeholder="Phone Number" required>
+      <input type="text" name="postcode" placeholder="Postcode" required>
+      <button type="submit">Start Search</button>
+    </form>
+    <div id="results" style="display:none;">
+      <p><strong>Property Address:</strong> 12 King Street, London, SE1 1AA</p>
+      <p><strong>Rateable Value:</strong> £24,000</p>
+      <button onclick="submitLead()">Send to CRM</button>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>

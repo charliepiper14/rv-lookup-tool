@@ -3,8 +3,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>RV Lookup Tool</title>
+  <title>Rateable Value Lookup Tool</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=geometry,drawing"></script>
 </head>
 <body>
   <div class="container">
@@ -14,12 +15,21 @@
       <input type="text" name="company" placeholder="Company Name" required>
       <input type="email" name="email" placeholder="Email" required>
       <input type="text" name="phone" placeholder="Phone Number" required>
-      <input type="text" name="postcode" placeholder="Postcode" required>
+      <input type="text" name="postcode" id="postcode" placeholder="Postcode" required>
       <button type="submit">Start Search</button>
     </form>
-    <div id="results" style="display:none;">
-      <p><strong>Property Address:</strong> 12 King Street, London, SE1 1AA</p>
+
+    <div id="tool" style="display:none;">
+      <h3>Step 2: Review Property & Area</h3>
+      <p><strong>Postcode:</strong> <span id="result-postcode"></span></p>
+      <p><strong>Mock Property:</strong> 12 King Street, London, SE1 1AA</p>
       <p><strong>Rateable Value:</strong> £24,000</p>
+
+      <div id="map" style="height: 400px; margin: 10px 0;"></div>
+
+      <label>Or manually enter property size (m²):</label>
+      <input type="number" id="manual-area" placeholder="e.g. 150">
+
       <button onclick="submitLead()">Send to CRM</button>
     </div>
   </div>

@@ -1,92 +1,100 @@
-
-let currentStep = 0;
-const steps = document.querySelectorAll('.step');
-const stepNumber = document.getElementById('step-number');
-
-function showStep(n) {
-  steps.forEach((step, index) => step.classList.toggle('active', index === n));
-  stepNumber.textContent = n + 1;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  showStep(currentStep);
-
-  document.getElementById('step1-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    showStep(1);
-    initAutocomplete();
-    initMap();
-  });
-
-  document.getElementById('to-step-3').addEventListener('click', () => {
-    document.getElementById('results-box').textContent = '£24,000 (example result)';
-    showStep(2);
-  });
-
-  document.getElementById('submit-review').addEventListener('click', () => {
-    alert('Submitted to Zapier + GoHighLevel (simulation)');
-  });
-});
-
-function initAutocomplete() {
-  const input = document.getElementById('autocomplete');
-  const autocomplete = new google.maps.places.Autocomplete(input, {
-    types: ['address'],
-    componentRestrictions: { country: 'gb' }
-  });
-
-  autocomplete.addListener('place_changed', () => {
-    const place = autocomplete.getPlace();
-    if (place && place.formatted_address) {
-      input.dataset.selectedAddress = place.formatted_address;
-      console.log('Selected Address:', place.formatted_address);
-    }
-  });
-}
+let map;
+let drawingManager;
+let selectedShape;
 
 function initMap() {
-  const map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: 51.509865, lng: -0.118092 }, // Central London
-    zoom: 13,
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 51.5074, lng: -0.1278 },
+    zoom: 8,
+    mapTypeId: "roadmap"
   });
 
-  const drawingManager = new google.maps.drawing.DrawingManager({
+  drawingManager = new google.maps.drawing.DrawingManager({
     drawingControl: true,
     drawingControlOptions: {
       position: google.maps.ControlPosition.TOP_CENTER,
-      drawingModes: ['polygon', 'rectangle'],
+      drawingModes: ["polygon", "rectangle"]
     },
     polygonOptions: {
-      fillColor: '#ffff00',
-      fillOpacity: 0.5,
-      strokeWeight: 2,
-      clickable: false,
       editable: true,
-      zIndex: 1
+      fillColor: "#ffeb3b",
+      strokeWeight: 2
     },
+    rectangleOptions: {
+      editable: true,
+      fillColor: "#ffeb3b",
+      strokeWeight: 2
+    }
   });
 
   drawingManager.setMap(map);
 
-  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
-    let area = 0;
-    if (event.type === 'polygon') {
-      area = google.maps.geometry.spherical.computeArea(event.overlay.getPath());
-    } else if (event.type === 'rectangle') {
-      const bounds = event.overlay.getBounds();
-      const ne = bounds.getNorthEast();
-      const sw = bounds.getSouthWest();
-      const width = google.maps.geometry.spherical.computeDistanceBetween(
-        new google.maps.LatLng(ne.lat(), sw.lng()),
-        new google.maps.LatLng(ne.lat(), ne.lng())
-      );
-      const height = google.maps.geometry.spherical.computeDistanceBetween(
-        new google.maps.LatLng(ne.lat(), ne.lng()),
-        new google.maps.LatLng(sw.lat(), ne.lng())
-      );
-      area = width * height;
+  google.maps.event.addListener(drawingManager, "overlaycomplete", function (event) {
+    if (selectedShape) {
+      selectedShape.setMap(null);
     }
-    const sqm = Math.round(area);
-    document.getElementById('manual-area').value = sqm;
+    selectedShape = event.overlay;
+
+    const area = google.maps.geometry.spherical.computeArea(selectedShape.getPath ? selectedShape.getPath() : selectedShape.getBounds().toPolygonPath());
+    document.getElementById("manual-area").value = Math.round(area);
   });
 }
+
+google.maps.LatLngBounds.prototype.toPolygonPath = function () {
+  const ne = this.getNorthEast();
+  const sw = this.getSouthWest();
+  return [
+    new google.maps.LatLng(ne.lat(), sw.lng()),
+    new google.maps.LatLng(ne.lat(), ne.lng()),
+    new google.maps.LatLng(sw.lat(), ne.lng()),
+    new google.maps.LatLng(sw.lat(), sw.lng())
+  ];
+};
+
+function initAutocomplete() {
+  const input = document.getElementById("autocomplete");
+  const autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.setFields(["geometry", "name"]);
+
+  autocomplete.addListener("place_changed", () => {
+    const place = autocomplete.getPlace();
+    if (!place.geometry) {
+      alert("No details available for that input.");
+      return;
+    }
+
+    // Zoom and pan the map to the selected place
+    map.panTo(place.geometry.location);
+    map.setZoom(19);
+
+    // Place marker
+    if (window.propertyMarker) window.propertyMarker.setMap(null);
+    window.propertyMarker = new google.maps.Marker({
+      position: place.geometry.location,
+      map: map,
+      title: place.name
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("step1-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    document.getElementById("step-1").classList.remove("active");
+    document.getElementById("step-2").classList.add("active");
+    document.getElementById("step-number").textContent = "2";
+    initMap();
+    initAutocomplete();
+  });
+
+  document.getElementById("to-step-3").addEventListener("click", function () {
+    document.getElementById("step-2").classList.remove("active");
+    document.getElementById("step-3").classList.add("active");
+    document.getElementById("step-number").textContent = "3";
+    document.getElementById("results-box").innerText = "Estimated RV based on postcode and area...";
+  });
+
+  document.getElementById("submit-review").addEventListener("click", function () {
+    alert("Data submitted to webhook.");
+  });
+});

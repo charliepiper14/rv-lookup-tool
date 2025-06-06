@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Business Rates Lookup Tool</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL9gNDUmySe_HgD7oFGL3BXIa8QM0ORQY&libraries=places,drawing"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL9gNDUmySe_HgD7oFGL3BXIa8QM0ORQY&libraries=places,drawing,geometry"></script>
 </head>
 <body>
   <div id="app">
@@ -27,7 +27,7 @@
 
     <div id="step-2" class="step">
       <h2>Select Property & Area</h2>
-      <select id="address-dropdown"><option>Loading addresses...</option></select>
+      <input type="text" id="autocomplete" placeholder="Start typing your property address..." />
       <div class="map-or-manual">
         <div id="map"></div>
         <div class="manual-area">
@@ -49,7 +49,6 @@
       <button id="submit-review">Book Your Free Review Now</button>
     </div>
   </div>
-
   <script src="main.js" defer></script>
 </body>
 </html>

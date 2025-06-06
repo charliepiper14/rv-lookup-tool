@@ -1,1 +1,4 @@
-body{font-family:sans-serif}.container{max-width:700px;margin:auto;background:white;padding:20px;border-radius:8px}input,button,select{width:100%;margin:10px 0;padding:10px;font-size:16px}
+
+body { font-family: sans-serif; background: #f0f0f0; padding: 20px; }
+.container { max-width: 700px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+input, button, select { width: 100%; margin: 10px 0; padding: 10px; font-size: 16px; }

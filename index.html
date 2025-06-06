@@ -1,1 +1,55 @@
-<!-- Final UI with Google Places Autocomplete & VOA integration -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Rates Lookup Tool</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL9gNDUmySe_HgD7oFGL3BXIa8QM0ORQY&libraries=places,drawing"></script>
+</head>
+<body>
+  <div id="app">
+    <img src="logo.png" alt="Appeal Business Rates" id="logo" />
+    <h1>Business Rates Lookup Tool</h1>
+    <div id="step-indicator">Step <span id="step-number">1</span> of 3</div>
+
+    <div id="step-1" class="step active">
+      <h2>Your Details</h2>
+      <form id="step1-form">
+        <input type="text" id="name" placeholder="Full Name" required />
+        <input type="text" id="company" placeholder="Company Name" required />
+        <input type="email" id="email" placeholder="Email Address" required />
+        <input type="text" id="phone" placeholder="Phone Number" required />
+        <input type="text" id="postcode" placeholder="Property Postcode" required />
+        <button type="submit">Continue to Property Lookup</button>
+      </form>
+    </div>
+
+    <div id="step-2" class="step">
+      <h2>Select Property & Area</h2>
+      <select id="address-dropdown"><option>Loading addresses...</option></select>
+      <div class="map-or-manual">
+        <div id="map"></div>
+        <div class="manual-area">
+          <label>Or enter area manually (m²):</label>
+          <input type="number" id="manual-area" placeholder="e.g. 120" />
+        </div>
+      </div>
+      <button id="to-step-3">Continue to Results</button>
+    </div>
+
+    <div id="step-3" class="step">
+      <h2>Estimated Rateable Value</h2>
+      <div id="results-box">Loading result...</div>
+      <p class="review-note">
+        Think You’re Overpaying on Business Rates?<br />
+        Get instant clarity on your property's rateable value — then book your Free Business Rates Review to uncover hidden savings.<br />
+        At Appeal Business Rates, we help businesses like yours challenge unfair valuations, reduce costs, and reclaim thousands in overpaid rates. No risk. No upfront fees. Just expert support and real results.
+      </p>
+      <button id="submit-review">Book Your Free Review Now</button>
+    </div>
+  </div>
+
+  <script src="main.js" defer></script>
+</body>
+</html>

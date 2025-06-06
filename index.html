@@ -1,1 +1,32 @@
-<!DOCTYPE html><html><head><title>RV Lookup Tool</title></head><body><h1>Rateable Value Tool</h1><script src='main.js'></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rateable Value Tool</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Rateable Value Lookup</h1>
+    
+    <form id="step1">
+      <h2>Step 1: Enter your details</h2>
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="text" name="company" placeholder="Company Name" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="tel" name="phone" placeholder="Phone Number" required />
+      <input type="text" name="postcode" placeholder="Postcode" required />
+      <button type="submit">Next</button>
+    </form>
+
+    <div id="result" style="display:none;">
+      <h2>Result:</h2>
+      <div id="property-result"></div>
+      <button id="submitToCRM">Book Your Free Review Now</button>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

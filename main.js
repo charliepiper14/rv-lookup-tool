@@ -8,7 +8,7 @@ document.getElementById("step1Form").addEventListener("submit", async function(e
   document.getElementById("step2").style.display = "block";
 
   try {
-    const response = await fetch(`https://rv-lookup-scraper-backend.onrender.com/lookup-addresses?postcode=${postcode}`);
+    const response = await fetch(`https://rv-lookup-scraper-backend-1.onrender.com/lookup-addresses?postcode=${postcode}`);
     const results = await response.json();
     const dropdown = document.getElementById("addressDropdown");
     dropdown.innerHTML = "";

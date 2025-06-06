@@ -1,20 +1,22 @@
 
+let currentStep = 0;
+const steps = document.querySelectorAll('.step');
+const stepNumber = document.getElementById('step-number');
+
+function showStep(n) {
+  steps.forEach((step, index) => {
+    step.classList.toggle('active', index === n);
+  });
+  stepNumber.textContent = n + 1;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  const steps = document.querySelectorAll('.step');
-  let currentStep = 0;
-
-  function showStep(n) {
-    steps.forEach((s, i) => s.classList.toggle('active', i === n));
-    document.getElementById('step-number').textContent = n + 1;
-  }
-
-  showStep(0);
+  showStep(currentStep);
 
   document.getElementById('step1-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    // Simulate lookup
-    document.getElementById('address-dropdown').innerHTML = '<option value="123">10 Downing Street, London</option>';
     showStep(1);
+    initAutocomplete();
   });
 
   document.getElementById('to-step-3').addEventListener('click', () => {
@@ -26,3 +28,28 @@ document.addEventListener('DOMContentLoaded', () => {
     alert('Submitted to Zapier + GoHighLevel (simulation)');
   });
 });
+
+function initAutocomplete() {
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.id = 'autocomplete';
+  input.placeholder = 'Start typing address...';
+  input.style = 'margin-bottom: 1rem; padding: 0.8rem; width: 100%; font-size: 1rem;';
+
+  const dropdownContainer = document.getElementById('address-dropdown');
+  dropdownContainer.innerHTML = '';
+  dropdownContainer.appendChild(input);
+
+  const autocomplete = new google.maps.places.Autocomplete(input, {
+    types: ['address'],
+    componentRestrictions: { country: 'gb' }
+  });
+
+  autocomplete.addListener('place_changed', () => {
+    const place = autocomplete.getPlace();
+    if (place && place.formatted_address) {
+      input.dataset.selectedAddress = place.formatted_address;
+      console.log('Selected Address:', place.formatted_address);
+    }
+  });
+}

@@ -10,46 +10,51 @@ function initMap() {
   });
 
   drawingManager = new google.maps.drawing.DrawingManager({
+    drawingMode: null,
     drawingControl: true,
     drawingControlOptions: {
       position: google.maps.ControlPosition.TOP_CENTER,
-      drawingModes: ["polygon", "rectangle"]
+      drawingModes: ["rectangle", "polygon"]
     },
     polygonOptions: {
-      editable: true,
       fillColor: "#ffeb3b",
-      strokeWeight: 2
+      strokeColor: "#ffd700",
+      editable: true,
+      draggable: false
     },
     rectangleOptions: {
-      editable: true,
       fillColor: "#ffeb3b",
-      strokeWeight: 2
+      strokeColor: "#ffd700",
+      editable: true,
+      draggable: false
     }
   });
 
   drawingManager.setMap(map);
 
   google.maps.event.addListener(drawingManager, "overlaycomplete", function (event) {
-    if (selectedShape) {
-      selectedShape.setMap(null);
-    }
+    if (selectedShape) selectedShape.setMap(null);
     selectedShape = event.overlay;
 
-    const area = google.maps.geometry.spherical.computeArea(selectedShape.getPath ? selectedShape.getPath() : selectedShape.getBounds().toPolygonPath());
+    let area = 0;
+
+    if (event.type === "polygon") {
+      const path = selectedShape.getPath();
+      area = google.maps.geometry.spherical.computeArea(path);
+    } else if (event.type === "rectangle") {
+      const bounds = selectedShape.getBounds();
+      const sw = bounds.getSouthWest();
+      const ne = bounds.getNorthEast();
+      const SE = new google.maps.LatLng(sw.lat(), ne.lng());
+      const NW = new google.maps.LatLng(ne.lat(), sw.lng());
+      const width = google.maps.geometry.spherical.computeDistanceBetween(sw, SE);
+      const height = google.maps.geometry.spherical.computeDistanceBetween(sw, NW);
+      area = width * height;
+    }
+
     document.getElementById("manual-area").value = Math.round(area);
   });
 }
-
-google.maps.LatLngBounds.prototype.toPolygonPath = function () {
-  const ne = this.getNorthEast();
-  const sw = this.getSouthWest();
-  return [
-    new google.maps.LatLng(ne.lat(), sw.lng()),
-    new google.maps.LatLng(ne.lat(), ne.lng()),
-    new google.maps.LatLng(sw.lat(), ne.lng()),
-    new google.maps.LatLng(sw.lat(), sw.lng())
-  ];
-};
 
 function initAutocomplete() {
   const input = document.getElementById("autocomplete");
@@ -63,11 +68,9 @@ function initAutocomplete() {
       return;
     }
 
-    // Zoom and pan the map to the selected place
     map.panTo(place.geometry.location);
     map.setZoom(19);
 
-    // Place marker
     if (window.propertyMarker) window.propertyMarker.setMap(null);
     window.propertyMarker = new google.maps.Marker({
       position: place.geometry.location,

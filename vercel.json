@@ -1,0 +1,1 @@
+{"functions": {"api/lookup-addresses.js": {"runtime": "nodejs18.x"}, "api/fetch-valuation.js": {"runtime": "nodejs18.x"}}}

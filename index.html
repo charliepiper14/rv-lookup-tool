@@ -3,34 +3,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rateable Value Lookup Tool</title>
+  <title>RV Lookup with VOA Scraper</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=geometry,drawing"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL9gNDUmySe_HgD7oFGL3BXIa8QM0ORQY&libraries=geometry,drawing,places"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Rateable Value Lookup Tool</h1>
-    <form id="preload-form">
+    <h1>Rateable Value Lookup</h1>
+    <form id="step1">
+      <h2>Step 1: Your Details</h2>
       <input type="text" name="name" placeholder="Your Name" required>
       <input type="text" name="company" placeholder="Company Name" required>
       <input type="email" name="email" placeholder="Email" required>
       <input type="text" name="phone" placeholder="Phone Number" required>
       <input type="text" name="postcode" id="postcode" placeholder="Postcode" required>
-      <button type="submit">Start Search</button>
+      <button type="submit">Next</button>
     </form>
 
-    <div id="tool" style="display:none;">
-      <h3>Step 2: Review Property & Area</h3>
-      <p><strong>Postcode:</strong> <span id="result-postcode"></span></p>
-      <p><strong>Mock Property:</strong> 12 King Street, London, SE1 1AA</p>
-      <p><strong>Rateable Value:</strong> £24,000</p>
+    <form id="step2" style="display:none;">
+      <h2>Step 2: Select Property</h2>
+      <select id="property-select" required></select>
+      <div id="map" style="height: 300px; margin: 10px 0;"></div>
+      <input type="number" id="manual-area" placeholder="Enter known area (m²)">
+      <button type="submit">Get RV</button>
+    </form>
 
-      <div id="map" style="height: 400px; margin: 10px 0;"></div>
-
-      <label>Or manually enter property size (m²):</label>
-      <input type="number" id="manual-area" placeholder="e.g. 150">
-
-      <button onclick="submitLead()">Send to CRM</button>
+    <div id="step3" style="display:none;">
+      <h2>Step 3: Results</h2>
+      <p><strong>Address:</strong> <span id="rv-address"></span></p>
+      <p><strong>Description:</strong> <span id="rv-description"></span></p>
+      <p><strong>Rateable Value:</strong> <span id="rv-value"></span></p>
+      <p><strong>Area:</strong> <span id="rv-area"></span> m²</p>
+      <button onclick="submitData()">Book Your Free Review Now</button>
     </div>
   </div>
   <script src="main.js"></script>

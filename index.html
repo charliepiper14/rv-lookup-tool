@@ -1,32 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rateable Value Tool</title>
-  <link rel="stylesheet" href="style.css">
-</head>
 <body>
-  <div class="container">
-    <h1>Rateable Value Lookup</h1>
-    
-    <form id="step1">
-      <h2>Step 1: Enter your details</h2>
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="text" name="company" placeholder="Company Name" required />
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="tel" name="phone" placeholder="Phone Number" required />
-      <input type="text" name="postcode" placeholder="Postcode" required />
-      <button type="submit">Next</button>
-    </form>
+  <div class="step-container">
+    <h1 class="heading">Business Rates Lookup Tool</h1>
+    <p class="subheading">Check your property's rateable value and get a free rates review</p>
 
-    <div id="result" style="display:none;">
-      <h2>Result:</h2>
-      <div id="property-result"></div>
-      <button id="submitToCRM">Book Your Free Review Now</button>
+    <div class="step-indicator">
+      <div class="progress-labels">
+        <span class="active">Your Details</span>
+        <span>Property Lookup</span>
+        <span>Results & Review</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 33%;"></div>
+      </div>
+      <div class="progress-text">Step 1 of 3 — 33% Complete</div>
+    </div>
+
+    <div class="form-card">
+      <h2><span>👤</span> Your Details</h2>
+      <p class="form-subtext">We'll use this information to provide your property lookup and free rates review</p>
+      <form id="step1">
+        <div class="form-grid">
+          <div>
+            <label>Full Name *</label>
+            <input type="text" name="name" placeholder="John Smith" required />
+          </div>
+          <div>
+            <label>Company Name *</label>
+            <input type="text" name="company" placeholder="ABC Trading Ltd" required />
+          </div>
+          <div>
+            <label>Email Address *</label>
+            <input type="email" name="email" placeholder="john@company.com" required />
+          </div>
+          <div>
+            <label>Phone Number *</label>
+            <input type="tel" name="phone" placeholder="01234 567890" required />
+          </div>
+          <div class="full">
+            <label>Property Postcode *</label>
+            <input type="text" name="postcode" placeholder="SW1A 1AA" required />
+            <small>Enter the postcode of the commercial property you want to check</small>
+          </div>
+        </div>
+        <button type="submit" class="cta-button">Continue to Property Lookup</button>
+      </form>
     </div>
   </div>
 
   <script src="main.js"></script>
 </body>
-</html>
+

@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Business Rates Lookup Tool</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL9gNDUmySe_HgD7oFGL3BXIa8QM0ORQY&libraries=drawing,places"></script>
+</head>
+<body>
+    <div class="container" id="step-1">
+        <img src="logo.png" alt="ABR Logo" class="logo"/>
+        <h1>Business Rates Lookup Tool</h1>
+        <h2>Step 1: Your Details</h2>
+        <input type="text" id="name" placeholder="Full Name" />
+        <input type="text" id="company" placeholder="Company Name" />
+        <input type="email" id="email" placeholder="Email Address" />
+        <input type="tel" id="phone" placeholder="Phone Number" />
+        <input type="text" id="postcode" placeholder="Property Postcode" />
+        <button onclick="goToStep2()">Continue to Property Lookup</button>
+    </div>
+
+    <div class="container hidden" id="step-2">
+        <h2>Step 2: Property Lookup</h2>
+        <input id="autocomplete" placeholder="Search property address" />
+        <div id="map"></div>
+        <label>Or enter area manually (m²):</label>
+        <input type="number" id="manual-area" placeholder="e.g. 120" />
+        <button onclick="goToStep3()">Continue to Results</button>
+    </div>
+
+    <div class="container hidden" id="step-3">
+        <h2>Step 3: Results & Free Review</h2>
+        <div id="results"></div>
+        <button onclick="submitToCRM()">Book Your Free Review Now</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -34,4 +34,22 @@ function initMap() {
             map.setZoom(18);
         }
     });
+
+    google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
+        if (event.type === 'rectangle') {
+            const bounds = event.overlay.getBounds();
+            const NE = bounds.getNorthEast();
+            const SW = bounds.getSouthWest();
+
+            const earthRadius = 6378137; // in meters
+            const latDiff = NE.lat() - SW.lat();
+            const lngDiff = NE.lng() - SW.lng();
+
+            const latDistance = earthRadius * latDiff * Math.PI / 180;
+            const lngDistance = earthRadius * Math.cos((NE.lat() + SW.lat()) * Math.PI / 360) * lngDiff * Math.PI / 180;
+
+            const areaSqMeters = Math.abs(latDistance * lngDistance);
+            document.querySelector('input[type=number]').value = Math.round(areaSqMeters);
+        }
+    });
 }

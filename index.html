@@ -1,37 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Business Rates Lookup Tool</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Rates Lookup Tool</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="app">
-    <img src="logo.png" alt="ABR Logo" class="logo" />
-    <h1>Business Rates Lookup Tool</h1>
-    <div id="step-1" class="step active">
-      <h2>Step 1: Your Details</h2>
-      <input type="text" placeholder="Full Name" id="name" />
-      <input type="text" placeholder="Company Name" id="company" />
-      <input type="email" placeholder="Email Address" id="email" />
-      <input type="tel" placeholder="Phone Number" id="phone" />
-      <input type="text" placeholder="Property Postcode" id="postcode" />
-      <button onclick="goToStep2()">Continue to Property Lookup</button>
+    <div class="container">
+        <img src="logo.png" alt="ABR Logo" class="logo">
+        <h1>Business Rates Lookup Tool</h1>
+        <h2>Step 1: Your Details</h2>
+        <form id="step-1-form">
+            <input type="text" placeholder="Full Name" required><br>
+            <input type="text" placeholder="Company Name" required><br>
+            <input type="email" placeholder="Email Address" required><br>
+            <input type="tel" placeholder="Phone Number" required><br>
+            <input type="text" placeholder="Property Postcode" required><br>
+            <button type="submit">Continue to Property Lookup</button>
+        </form>
     </div>
-    <div id="step-2" class="step">
-      <h2>Step 2: Property Lookup</h2>
-      <select id="address-dropdown"><option>Loading addresses...</option></select>
-      <div id="map"></div>
-      <input type="number" placeholder="Area in m²" id="manual-area" />
-      <button onclick="goToStep3()">Continue to Results</button>
-    </div>
-    <div id="step-3" class="step">
-      <h2>Step 3: Results & Review</h2>
-      <div id="results"></div>
-      <button onclick="submitToCRM()">Book Your Free Review Now</button>
-    </div>
-  </div>
-  <script src="main.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL9gNDUmySe_HgD7oFGL3BXIa8QM0ORQY&libraries=places,drawing"></script>
 </body>
 </html>

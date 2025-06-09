@@ -1,2 +1,2 @@
-// Placeholder for JS logic
-console.log('Script loaded');
+// JS loader logic
+window.onload = () => { document.getElementById('app').textContent = 'App Loaded'; };

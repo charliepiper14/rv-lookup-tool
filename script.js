@@ -1,1 +1,1 @@
-// script.js placeholder
+console.log('Main script loaded');

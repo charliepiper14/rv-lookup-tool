@@ -1,1 +1,1 @@
-console.log('Map logic goes here');
+// Google Maps integration script

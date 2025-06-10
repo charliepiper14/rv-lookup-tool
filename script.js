@@ -1,1 +1,1 @@
-console.log('RV Lookup Tool working');
+// JavaScript content will go here

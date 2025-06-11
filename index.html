@@ -3,49 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RV Lookup Tool</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL9gNDUmySe_HgD7oFGL3BXIa8QM0ORQY&libraries=places,drawing"></script>
+  <title>Rateable Value Lookup Tool</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL9gNDUmySe_HgD7oFGL3BXIa8QM0ORQY&libraries=places,drawing,geometry"></script>
 </head>
 <body>
   <div class="container">
-    <div id="step1" class="step active">
-      <img src="logo.png" alt="Logo" class="logo"/>
-      <h1 class="headline">Find Your Business Rates Savings</h1>
-      <h2>Step 1: Your Details</h2>
-      <form id="form-step1">
-        <input type="text" placeholder="Full Name" required />
-        <input type="text" placeholder="Company Name" required />
-        <input type="email" placeholder="Email Address" required />
-        <input type="tel" placeholder="Phone Number" required />
-        <input type="text" id="postcode" placeholder="Property Postcode" required />
-        <button type="submit">Next Step</button>
-      </form>
+    <img src="logo.png" alt="Logo" class="logo" />
+    <div id="step-1" class="step">
+      <h2>Find Your Business Rates Savings</h2>
+      <input type="text" id="name" placeholder="Full Name" />
+      <input type="text" id="company" placeholder="Company Name" />
+      <input type="email" id="email" placeholder="Email Address" />
+      <input type="tel" id="phone" placeholder="Phone Number" />
+      <input type="text" id="postcode" placeholder="Postcode" />
+      <button id="to-step-2">Continue to Property Lookup</button>
     </div>
 
-    <div id="step2" class="step">
-      <h2>Step 2: Property Details</h2>
-      <p>Enter the property address below or select from suggestions if available. Use map tools (polygon icon) to draw the boundary and calculate area, or enter manually.</p>
-      <input type="text" id="address-input" placeholder="e.g. 10 Downing Street, London, SW1A 2AA" />
-      <div id="map"></div>
-      <label>Property Area (sq meters)</label>
-      <input type="number" id="area-input" placeholder="e.g. 150" />
-      <label>Property Use Class</label>
-      <select id="use-class">
-        <option>Office</option>
+    <div id="step-2" class="step hidden">
+      <h2>Select Property & Area</h2>
+      <p>Select your address from the list and draw the area or enter it manually.</p>
+      <select id="address-dropdown"><option>Select an address</option></select>
+      <select id="business-class">
         <option>Retail</option>
+        <option>Office</option>
         <option>Industrial</option>
+        <option>Hospitality</option>
         <option>Warehouse</option>
-        <option>Restaurant/Cafe</option>
-        <option>Leisure</option>
-        <option>Medical</option>
-        <option>Educational</option>
-        <option>Other</option>
       </select>
-      <div class="buttons">
-        <button id="back-to-step1">Back</button>
-        <button id="to-step3">Next Step</button>
+      <div id="map"></div>
+      <div class="manual-entry">
+        <label>Manual Area (m²):</label>
+        <input type="number" id="manual-area" placeholder="e.g. 120" />
       </div>
+      <button id="to-step-3">Continue to Results</button>
+    </div>
+
+    <div id="step-3" class="step hidden">
+      <h2>Estimated Rateable Value</h2>
+      <p>Your estimated RV and comparison will appear here.</p>
+      <div id="results"></div>
+      <button id="submit">Book Your Free Review Now</button>
     </div>
   </div>
   <script src="script.js"></script>

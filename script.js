@@ -1,52 +1,87 @@
-document.getElementById('form-step1').addEventListener('submit', function(e) {
-  e.preventDefault();
-  document.getElementById('step1').classList.remove('active');
-  document.getElementById('step2').classList.add('active');
-  initMap();
+document.addEventListener("DOMContentLoaded", () => {
+  const toStep2 = document.getElementById("to-step-2");
+  const toStep3 = document.getElementById("to-step-3");
+  const submitBtn = document.getElementById("submit");
+
+  toStep2.onclick = () => {
+    document.getElementById("step-1").classList.add("hidden");
+    document.getElementById("step-2").classList.remove("hidden");
+    initAutocomplete();
+  };
+
+  toStep3.onclick = () => {
+    document.getElementById("step-2").classList.add("hidden");
+    document.getElementById("step-3").classList.remove("hidden");
+    document.getElementById("results").innerText = "RV: £12,500\nNearby: £10,800 & £13,100";
+  };
+
+  submitBtn.onclick = () => {
+    fetch("https://hooks.zapier.com/hooks/catch/14702841/20cxqnc/", {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        name: document.getElementById("name").value,
+        company: document.getElementById("company").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        postcode: document.getElementById("postcode").value,
+        address: document.getElementById("address-dropdown").value,
+        area: document.getElementById("manual-area").value,
+        businessClass: document.getElementById("business-class").value
+      })
+    });
+    alert("Submitted");
+  };
 });
 
-document.getElementById('back-to-step1').addEventListener('click', function() {
-  document.getElementById('step2').classList.remove('active');
-  document.getElementById('step1').classList.add('active');
-});
+let currentOverlay;
 
-let map, drawingManager, selectedShape;
-
-function initMap() {
-  const defaultLocation = { lat: 51.5074, lng: -0.1278 };
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 15,
-    center: defaultLocation,
-  });
-
-  const input = document.getElementById('address-input');
-  const autocomplete = new google.maps.places.Autocomplete(input);
-  autocomplete.bindTo('bounds', map);
-  autocomplete.addListener('place_changed', () => {
-    const place = autocomplete.getPlace();
-    if (place.geometry && place.geometry.location) {
-      map.setCenter(place.geometry.location);
-      map.setZoom(19);
+function initAutocomplete() {
+  const dropdown = document.getElementById("address-dropdown");
+  const postcode = document.getElementById("postcode").value;
+  const service = new google.maps.places.AutocompleteService();
+  service.getPlacePredictions({ input: postcode, componentRestrictions: { country: "uk" } }, (predictions, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.OK && predictions) {
+      dropdown.innerHTML = "";
+      predictions.forEach(pred => {
+        const opt = document.createElement("option");
+        opt.value = pred.description;
+        opt.textContent = pred.description;
+        dropdown.appendChild(opt);
+      });
     }
   });
 
-  drawingManager = new google.maps.drawing.DrawingManager({
-    drawingMode: google.maps.drawing.OverlayType.POLYGON,
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 16,
+    center: { lat: 51.5074, lng: -0.1278 },
+  });
+
+  const drawingManager = new google.maps.drawing.DrawingManager({
     drawingControl: true,
     drawingControlOptions: {
-      position: google.maps.ControlPosition.TOP_CENTER,
-      drawingModes: ['polygon'],
+      drawingModes: ["polygon"],
     },
   });
-
   drawingManager.setMap(map);
 
-  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
-    if (selectedShape) {
-      selectedShape.setMap(null);
+  google.maps.event.addListener(drawingManager, "overlaycomplete", (event) => {
+    if (currentOverlay) {
+      currentOverlay.setMap(null);
     }
-    selectedShape = e.overlay;
-    const area = google.maps.geometry.spherical.computeArea(selectedShape.getPath());
-    document.getElementById('area-input').value = Math.round(area);
+    currentOverlay = event.overlay;
+    if (event.type === "polygon") {
+      const area = google.maps.geometry.spherical.computeArea(event.overlay.getPath());
+      document.getElementById("manual-area").value = (area).toFixed(2);
+    }
   });
+
+  const geocoder = new google.maps.Geocoder();
+  dropdown.onchange = () => {
+    geocoder.geocode({ address: dropdown.value }, (results, status) => {
+      if (status === "OK") {
+        map.setCenter(results[0].geometry.location);
+      }
+    });
+  };
 }

@@ -1,1 +1,0 @@
-// JavaScript logic for steps, navigation, and API calls

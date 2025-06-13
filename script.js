@@ -1,4 +1,1 @@
-document.querySelector("form").addEventListener("submit", function(e) {
-    e.preventDefault();
-    alert("Step 1 submitted!");
-});
+// JavaScript logic for steps, navigation, and API calls

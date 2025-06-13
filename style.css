@@ -1,0 +1,57 @@
+
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    text-align: center;
+    padding: 40px 20px;
+}
+.logo {
+    width: 80px;
+    margin-bottom: 20px;
+}
+.title {
+    color: yellow;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.form-step {
+    background: #111;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 0 15px yellow;
+}
+.form-step h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+}
+button {
+    background-color: yellow;
+    border: none;
+    padding: 14px 24px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+.map-container {
+    width: 100%;
+    height: 300px;
+    margin: 10px 0;
+    background: #333;
+}

@@ -3,44 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RV Lookup Tool</title>
+  <title>Business Rates Lookup Tool</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpEOiWHzHNbuOdOEggj7OupnGZVpHwQzw&libraries=places,drawing,geometry" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div id="app">
-    <div id="step-1" class="step active">
-      <img src="logo.png" alt="Logo" class="logo" />
-      <h2>Find Your Business Rates Savings</h2>
-      <form id="step-1-form">
-        <input type="text" id="name" placeholder="Name" required />
-        <input type="text" id="company" placeholder="Company/Business Name" required />
-        <input type="email" id="email" placeholder="Email" required />
-        <input type="tel" id="phone" placeholder="Phone Number" required />
-        <input type="text" id="postcode" placeholder="Postcode" required />
-        <button type="submit" class="centered-btn">Next Step</button>
-      </form>
+  <div class="container">
+    <img src="logo.png" alt="Appeal Business Rates" class="logo" />
+    <h1 class="main-heading">Find Your Business Rates Savings</h1>
+
+    <div id="step1" class="step-box">
+      <h2>Step 1: Your Details</h2>
+      <input type="text" id="fullName" placeholder="Full Name" />
+      <input type="text" id="companyName" placeholder="Company Name" />
+      <input type="email" id="email" placeholder="Email Address" />
+      <input type="tel" id="phone" placeholder="Phone Number" />
+      <input type="text" id="postcode" placeholder="Property Postcode" />
+      <button onclick="goToStep2()" class="btn">Next Step</button>
     </div>
 
-    <div id="step-2" class="step">
-      <h2>Select Your Property & Area</h2>
-      <select id="address-dropdown"><option>Loading addresses...</option></select>
+    <div id="step2" class="step-box hidden">
+      <h2>Step 2: Property Lookup</h2>
+      <input type="text" id="autocomplete" placeholder="Start typing address..." />
       <div id="map"></div>
-      <label>Or enter area manually (m²):</label>
-      <input type="number" id="manual-area" placeholder="e.g. 120" />
-      <select id="business-class">
-        <option value="">Select Business Use Class</option>
-        <option value="Hospitality">Hospitality</option>
-        <option value="Retail">Retail</option>
-        <option value="Office">Office</option>
+      <input type="number" id="area" placeholder="Or enter area manually (m²)" />
+      <select id="businessClass">
+        <option disabled selected>Select Business Use Class</option>
+        <option>Office</option>
+        <option>Retail</option>
+        <option>Industrial</option>
+        <option>Warehouse</option>
+        <option>Restaurant/Cafe</option>
+        <option>Leisure</option>
+        <option>Medical</option>
+        <option>Educational</option>
+        <option>Hospitality</option>
+        <option>Other</option>
       </select>
-      <button id="to-step-3" class="centered-btn">Continue to Results</button>
-    </div>
-
-    <div id="step-3" class="step">
-      <h2>Loading VOA Results...</h2>
-      <div id="voa-results"></div>
-      <button id="submit-final" class="centered-btn">Submit Information</button>
+      <button class="btn">Continue to Results</button>
     </div>
   </div>
 </body>

@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RV Lookup Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="logo.png" alt="ABR Logo" class="logo" />
+        <h1 class="title">Find Your Business Rates Savings</h1>
+        <div class="form-step" id="step1">
+            <h2>Step 1: Your Details</h2>
+            <input type="text" placeholder="Full Name" id="name" />
+            <input type="text" placeholder="Company Name" id="company" />
+            <input type="email" placeholder="Email Address" id="email" />
+            <input type="text" placeholder="Phone Number" id="phone" />
+            <input type="text" placeholder="Property Postcode" id="postcode" />
+            <button id="nextStepBtn">Next Step</button>
+        </div>
+        <div class="form-step" id="step2" style="display:none;">
+            <h2>Step 2: Property Lookup</h2>
+            <input type="text" id="address" placeholder="Start typing address..." />
+            <div id="map" class="map-container"></div>
+            <input type="number" id="manualArea" placeholder="Or enter area manually (m²)" />
+            <select id="businessClass">
+                <option>Office</option>
+                <option>Retail</option>
+                <option>Industrial</option>
+                <option>Warehouse</option>
+                <option>Restaurant/Cafe</option>
+                <option>Leisure</option>
+                <option>Medical</option>
+                <option>Educational</option>
+                <option>Other</option>
+                <option>Hospitality</option>
+            </select>
+            <button id="submitBtn">Continue to Results</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

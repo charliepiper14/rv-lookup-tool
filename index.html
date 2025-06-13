@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RV Lookup Tool</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div id="app">
+    <div id="step-1" class="step active">
+      <img src="logo.png" alt="Logo" class="logo" />
+      <h2>Find Your Business Rates Savings</h2>
+      <form id="step-1-form">
+        <input type="text" id="name" placeholder="Name" required />
+        <input type="text" id="company" placeholder="Company/Business Name" required />
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="tel" id="phone" placeholder="Phone Number" required />
+        <input type="text" id="postcode" placeholder="Postcode" required />
+        <button type="submit" class="centered-btn">Next Step</button>
+      </form>
+    </div>
+
+    <div id="step-2" class="step">
+      <h2>Select Your Property & Area</h2>
+      <select id="address-dropdown"><option>Loading addresses...</option></select>
+      <div id="map"></div>
+      <label>Or enter area manually (m²):</label>
+      <input type="number" id="manual-area" placeholder="e.g. 120" />
+      <select id="business-class">
+        <option value="">Select Business Use Class</option>
+        <option value="Hospitality">Hospitality</option>
+        <option value="Retail">Retail</option>
+        <option value="Office">Office</option>
+      </select>
+      <button id="to-step-3" class="centered-btn">Continue to Results</button>
+    </div>
+
+    <div id="step-3" class="step">
+      <h2>Loading VOA Results...</h2>
+      <div id="voa-results"></div>
+      <button id="submit-final" class="centered-btn">Submit Information</button>
+    </div>
+  </div>
+</body>
+</html>

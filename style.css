@@ -1,42 +1,39 @@
 
 body {
   background: black;
-  color: white;
-  font-family: sans-serif;
+  color: #fff;
+  font-family: Arial, sans-serif;
   text-align: center;
 }
 .container {
-  max-width: 600px;
   margin: 50px auto;
+  padding: 30px;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px yellow;
+  background: #111;
 }
 .logo {
   width: 100px;
-  margin: 20px auto;
+  margin-bottom: 20px;
 }
-.step-form {
-  background: #111;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 20px yellow;
-}
-.step-form input, .step-form select {
-  width: 90%;
+input, select, button {
+  display: block;
+  width: 100%;
   margin: 10px 0;
-  padding: 10px;
-  font-size: 16px;
-}
-.step-form button {
-  background: yellow;
+  padding: 12px;
+  border-radius: 5px;
   border: none;
-  padding: 10px 20px;
+}
+button {
+  background: yellow;
+  color: black;
   font-weight: bold;
   cursor: pointer;
 }
 #map {
-  width: 100%;
   height: 300px;
-  margin: 10px 0;
-  background: #333;
+  margin-bottom: 10px;
 }
 .hidden {
   display: none;

@@ -1,33 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Business Rates Lookup Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RV Lookup Tool</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpEOiWHzHNbuOdOEggj7OupnGZVpHwQzw&libraries=places,drawing,geometry"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpEOiWHzHNbuOdOEggj7OupnGZVpHwQzw&libraries=places,drawing" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="container">
-    <img src="logo 3.png" alt="ABR Logo" class="logo" />
-    <h1 class="title">Find Your Business Rates Savings</h1>
-    <form id="step1" class="step-form">
-      <h2>Step 1: Your Details</h2>
+  <div class="container" id="step1">
+    <img src="logo.png" alt="ABR Logo" class="logo"/>
+    <h1>Find Your Business Rates Savings</h1>
+    <form id="form-step1">
       <input type="text" placeholder="Full Name" required />
       <input type="text" placeholder="Company Name" required />
       <input type="email" placeholder="Email Address" required />
-      <input type="tel" placeholder="Phone Number" required />
+      <input type="text" placeholder="Phone Number" required />
       <input type="text" placeholder="Property Postcode" id="postcode" required />
       <button type="submit">Next Step</button>
     </form>
+  </div>
 
-    <form id="step2" class="step-form hidden">
-      <h2>Step 2: Property Lookup</h2>
-      <input type="text" id="address-input" placeholder="Start typing address..." />
+  <div class="container hidden" id="step2">
+    <img src="logo.png" alt="ABR Logo" class="logo"/>
+    <h1>Find Your Business Rates Savings</h1>
+    <form id="form-step2">
+      <input id="autocomplete" placeholder="Start typing address..." type="text" />
       <div id="map"></div>
-      <input type="text" id="area" placeholder="Or enter area manually (m²)" />
-      <select id="business-class">
+      <input id="area" placeholder="Or enter area manually (m²)" />
+      <select id="use-class">
         <option>Office</option>
         <option>Retail</option>
         <option>Industrial</option>
@@ -42,6 +44,5 @@
       <button type="submit">Continue to Results</button>
     </form>
   </div>
-  <script src="script.js"></script>
 </body>
 </html>

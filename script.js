@@ -1,48 +1,14 @@
-let map, drawingManager, polygon = null;
 
-function goToStep2() {
-  document.getElementById('step1').classList.add('hidden');
-  document.getElementById('step2').classList.remove('hidden');
-  initMap();
-}
+document.getElementById("to-step-2").onclick = () => {
+  document.getElementById("step-1").classList.remove("active");
+  document.getElementById("step-2").classList.add("active");
+};
 
-function initMap() {
-  const input = document.getElementById('autocomplete');
-  const autocomplete = new google.maps.places.Autocomplete(input);
-  autocomplete.setFields(['geometry']);
+document.getElementById("to-step-3").onclick = () => {
+  document.getElementById("step-2").classList.remove("active");
+  document.getElementById("step-3").classList.add("active");
 
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 15,
-    center: { lat: 51.5074, lng: -0.1278 },
-    mapTypeId: "roadmap",
-  });
-
-  drawingManager = new google.maps.drawing.DrawingManager({
-    drawingMode: google.maps.drawing.OverlayType.POLYGON,
-    drawingControl: true,
-    drawingControlOptions: {
-      drawingModes: ["polygon"],
-    },
-    polygonOptions: {
-      fillColor: "#FFFF00",
-      strokeColor: "#FFFF00",
-      editable: true,
-    },
-  });
-
-  drawingManager.setMap(map);
-
-  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
-    if (polygon) polygon.setMap(null);
-    polygon = event.overlay;
-    const area = google.maps.geometry.spherical.computeArea(polygon.getPath());
-    document.getElementById("area").value = Math.round(area);
-  });
-
-  autocomplete.addListener("place_changed", () => {
-    const place = autocomplete.getPlace();
-    if (!place.geometry) return;
-    map.setCenter(place.geometry.location);
-    map.setZoom(19);
-  });
-}
+  // Simulate a fetch to VOA data
+  const results = document.getElementById("results");
+  results.innerHTML = "<p>Estimated RV: £24,500</p><p>Comparable 1: £22,000</p><p>Comparable 2: £21,800</p><p>Potential savings: £2,500+</p>";
+};
